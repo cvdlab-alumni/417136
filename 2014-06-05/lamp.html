@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+ <head> 
+  <title>HomeWork 4 SPERATI TZIANO [417136]</title> 
+  <style>
+    body{
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #stats {  /* Align stats top-left */
+      position: absolute;
+      left: 0px;
+      top: 0px;
+    }
+  </style> 
+  </head>
+  <body>  
+    <!-- JavaScript libraries -->
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
+<script src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r67/three.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/stats.js/r11/Stats.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.5/dat.gui.min.js"></script>
+<script src="assets/libs/TrackballControls.js"></script>
+<script type="text/javascript" src="assets/fonts/helvetiker_regular.typeface.js"></script> 
+<script type="text/javascript" src="assets/fonts/helvetiker_bold.typeface.js"></script> 
+<script type="text/javascript" src="assets/fonts/bitstream_vera_sans_mono_roman.typeface.js"></script> 
+<script src="assets/libs/libreria.js"></script>
+<script src="assets/libs/PLYLoader.js"></script>
+<script src="assets/libs/tween.min.js"></script>
+
+    <!-- Javascript code that runs our Three.js examples --> 
+    <script>
+      // once everything is loaded, we run our Three.js stuff.
+      $(function () {
+        var axisHelper = new THREE.AxisHelper( 50 );
+        var stats = initStats();
+
+        // create a scene, that will hold all our elements such as objects, cameras and lights.
+        var scene = new THREE.Scene();
+
+        // create a camera, which defines where we're looking at.
+        var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        var trackballControls = new THREE.TrackballControls(camera);
+        // create a render and set the size
+
+        var renderer = new THREE.WebGLRenderer();
+        renderer.shadowMapEnabled = true;
+
+        renderer.setClearColor(new THREE.Color(0x03C03C, 1.0));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        //var table = new THREE.Object3D();
+        var table = createTable(200,150,45);
+        //table.add(tavolo);
+        //table.receiveShadow = true;
+        scene.add(table);
+
+        //var planeBase = createPlane(300,200);
+        //scene.add(planeBase);
+        
+        var lamp = createLamp();
+        lamp.position.set(-100,45,20);
+        scene.add(lamp);
+        //aggiungi oggetti sul tavolo inserendo nome(cubo o sfera) e il valore di x e y (z è la base del tavolo)
+        //var objectOnTable = new THREE.Object3D(); 
+        var objectOnTable = addObject("cubo",50,-30);
+        //objectOnTable.add(objectCube);
+        scene.add(objectOnTable);
+
+        //var objectOnTable2 = new THREE.Object3D(); 
+        var objectOnTable2 = addObject("sfera",0,-30);
+        //objectOnTable2.add(objectSphere);
+        scene.add(objectOnTable2);
+
+        var supportLamp = new THREE.PointLight( 0xffe600, 8, 14);
+        supportLamp.position.set(0,0,6);
+
+        lamp.bulb1_1.add(supportLamp);
+
+
+      
+
+      var text1;
+      var testoCompleto;
+     
+          console.log(THREE.FontUtils.faces);
+
+          var coloreFont = "#0000FF";
+          var Pmaterial = new THREE.MeshPhongMaterial({color: coloreFont, shininess: 100});
+          var PtextGeom = new THREE.TextGeometry( 'P', {size: 20, height:10});
+          P = new THREE.Mesh( PtextGeom, Pmaterial );
+          P.rotation.x = Math.PI/2;
+          P.castShadow = true;
+
+          var Imaterial = new THREE.MeshPhongMaterial({color: coloreFont, shininess: 100});
+          var ItextGeom = new THREE.TextGeometry( 'I', {size: 20, height:10});
+          I = new THREE.Mesh( ItextGeom, Imaterial );
+          I.rotation.x = Math.PI/2;
+          I.castShadow = true;
+
+          var Xmaterial = new THREE.MeshPhongMaterial({color: coloreFont, shininess: 100});
+          var XtextGeom = new THREE.TextGeometry( 'X', {size: 20, height:10});
+          X = new THREE.Mesh( XtextGeom, Xmaterial );
+          X.rotation.x = Math.PI/2;
+          X.castShadow = true;
+          
+          var Amaterial = new THREE.MeshPhongMaterial({color: coloreFont, shininess: 100});
+          var AtextGeom = new THREE.TextGeometry( 'A', {size: 20, height:10});
+          A = new THREE.Mesh( AtextGeom, Amaterial );
+          A.rotation.x = Math.PI/2;
+          A.castShadow = true;
+          
+          var Rmaterial = new THREE.MeshPhongMaterial({color: coloreFont, shininess: 100});
+          var RtextGeom = new THREE.TextGeometry( 'R', {size: 20, height:10});
+          R = new THREE.Mesh( RtextGeom, Rmaterial );
+          R.rotation.x = Math.PI/2;
+          R.castShadow = true;
+
+          P.position.z = 0;  
+          P.position.y = 50;
+          P.position.x = 50;
+          P.rotation.x = Math.PI/2;
+          P.rotation.y = Math.PI;
+
+          I.position.z = 0;  
+          I.position.y = 50;
+          I.position.x = 20;
+          I.rotation.x = Math.PI/2;
+          I.rotation.y = Math.PI;
+
+          X.position.z = 0;  
+          X.position.y = 50;
+          X.position.x = -5;
+          X.rotation.x = Math.PI/2;
+          X.rotation.y = Math.PI;
+
+          A.position.z = 0;  
+          A.position.y = 50;
+          A.position.x = -25;
+          A.rotation.x = Math.PI/2;
+          A.rotation.y = Math.PI;
+
+          R.position.z = 0;  
+          R.position.y = 50;
+          R.position.x = -45;
+          R.rotation.x = Math.PI/2;
+          R.rotation.y = Math.PI;
+
+          testoCompleto = new THREE.Object3D();
+
+          testoCompleto.add(P);
+          testoCompleto.add(I);
+          testoCompleto.add(X);
+          testoCompleto.add(A);
+          testoCompleto.add(R);
+
+
+          scene.add(testoCompleto);
+          
+      
+
+      
+
+      var controls2 = new function () {
+          this.Alpha = Math.PI/2;
+          this.Beta = 0;
+          this.Gamma = 1.7;
+          this.Delta = 1.5;
+          this.Epsilon = 1.5;
+          this.PositionX = 0;
+          this.PositionY = 0;
+          this.Switch = true;
+          this.prova = true;
+      };
+
+
+
+
+      var gui = new dat.GUI();        
+      gui.add(controls2, 'Alpha', 0, 2*Math.PI).onChange(function (e) {
+        lamp.pivot.rotation.z = e;
+          });
+        gui.add(controls2, 'Beta', 0, Math.PI/2).onChange(function (e) {
+        lamp.hook.rotation.x = e;
+          });
+        gui.add(controls2, 'Gamma', 0, Math.PI/2).onChange(function (e) {
+        lamp.pivot2.rotation.x = e;
+          });
+
+        gui.add(controls2, 'Delta', 0, 2*Math.PI).onChange(function (e) {
+        lamp.pivot2.rotation.z = e;
+          });
+        gui.add(controls2, 'Epsilon', 1.5, 2*Math.PI).onChange(function (e) {
+        lamp.pivot4.rotation.x = e;
+          });
+        gui.add(controls2, 'PositionX', -100, 100).onChange(function (e) {
+        lamp.position.x = e;
+          });
+        gui.add(controls2, 'PositionY', -75, 75).onChange(function (e) {
+        lamp.position.y = e;
+          });
+
+        gui.add(controls2, 'Switch').onChange(function(e){
+          
+            lamp.spotlight.visible = e;
+            supportLamp.visible = e;
+            lamp.spotlight.castShadow = e;
+            table.piano.receiveShadow = e;
+             objectOnTable2.castShadow = e;
+             objectOnTable.castShadow = e;
+            // P.castShadow = e;
+            // I.castShadow = e;
+            // X.castShadow = e;
+            // A.castShadow = e;
+            // R.castShadow = e;
+
+            
+          /*}else{
+            lamp.spotlight.intensity = 0;
+            supportLamp.visible = false;
+            lamp.spotlight.castShadow = false;
+            objectOnTable.cube.castShadow = false;
+            objectOnTable2.sfera.castShadow = false;
+*/
+          
+        });
+
+       gui.add(controls2, 'prova').onChange(function(e) {
+        table.piano.receiveShadow = e;
+       });
+
+     
+      
+     
+     
+        
+        // position and point the camera to the center of the scene
+        camera.position.set(50,200,100);
+        camera.up = new THREE.Vector3(0,0,1);
+        camera.lookAt(scene.position);
+        //scene.add(axisHelper);
+        // add spotlight for the shadows
+        var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.7 );
+        directionalLight.position.set(0, 10, 0.3);
+        scene.add(directionalLight);        // add the output of the renderer to the html element
+        //ambient light
+        var light = new THREE.AmbientLight( 0x404040 ); // soft white light
+        scene.add( light );
+        $('body').append(renderer.domElement);
+
+        // call the render function
+        //var step = 0;
+
+        //animazioni
+
+        var tween = new TWEEN.Tween(lamp.position)
+        .to({ x: 20, y: 52, z: 20 }, 4000)
+        .easing(TWEEN.Easing.Bounce.Out)
+        .start();
+        
+        
+
+        setTimeout(function(){
+          I.visible = false;
+        }
+        ,4400);
+
+
+        
+
+        var tweenDOWN2 = new TWEEN.Tween(lamp.position)
+        .to({z: 0 }, 3000)
+        .easing(TWEEN.Easing.Bounce.Out)
+        .delay(4000)
+        .start();
+
+
+
+
+
+        
+
+        
+        var tweenRotation = new TWEEN.Tween(lamp.pivot4.rotation)
+        .to({ y:1.5 }, 1900)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .delay(7000)
+        .start();
+
+        
+
+
+      
+
+
+        
+        
+        //var gui = new dat.GUI();        
+
+        
+
+        
+     
+
+        
+
+        function createMesh(geom) {
+       
+        var meshMaterial = new THREE.MeshPhongMaterial({specular: 0xffffff, color: 0x002FA7, shininess: 100});
+        
+        var plane = THREE.SceneUtils.createMultiMaterialObject(geom, [meshMaterial]);
+        return plane;
+      }
+      render();
+
+        function render() {
+          stats.update();
+          trackballControls.update();
+  
+          TWEEN.update();
+
+          requestAnimationFrame(render);
+          renderer.render(scene, camera);
+
+        }
+
+        function initStats() {
+          var stats = new Stats();
+          stats.setMode(0); // 0: fps, 1: ms
+          $('body').append(stats.domElement);
+          return stats;
+        }
+      });
+    </script>  
+ </body>
+</html>\
